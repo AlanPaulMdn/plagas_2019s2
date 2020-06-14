@@ -1,0 +1,47 @@
+import elementos.*
+import plagas.*
+
+test "Elementos" {
+	const hogar = new Hogar(nivelDeMugre=10,confortQueOfrece=100)
+	const huerta = new Huerta (capacidadDeProduccion=100 ,nivel=0)
+	const mascota = new Mascota(nivelDeSalud=300)
+	const t6 = new Barrio(elementos= [hogar,huerta,mascota])
+	
+	assert.that( t6.esCopado())
+	
+	assert.that( hogar.esBueno())
+	assert.that( huerta.esBueno())
+	assert.that( mascota.esBueno())
+	
+	hogar.nivelDeMugre(60)
+	huerta.nivel(101)
+	
+	assert.notThat( hogar.esBueno())
+	assert.notThat( huerta.esBueno())
+	assert.notThat( t6.esCopado())
+	
+	huerta.nivel(10)
+	mascota.nivelDeSalud(200)
+	
+	assert.that( huerta.esBueno())
+	assert.notThat( mascota.esBueno())
+	assert.notThat( t6.esCopado())
+	
+	hogar.nivelDeMugre(10)
+	mascota.nivelDeSalud(250)
+	
+	const plaga = new Mosquitos(poblacionMosquitos= 50)
+	hogar.recibeAtaqueDe(plaga)
+	huerta.recibeAtaqueDe(plaga)
+	mascota.recibeAtaqueDe(plaga)
+	
+	assert.notThat( hogar.esBueno())
+	assert.that( huerta.esBueno())
+	assert.notThat( mascota.esBueno())
+	assert.notThat( t6.esCopado())
+	
+	assert.equals( 60, hogar.nivelDeMugre()) //10+50
+	assert.equals( 95,huerta.capacidadDeProduccion()) //100-5
+	assert.equals(200 ,mascota.nivelDeSalud()) //250-200
+	
+}
