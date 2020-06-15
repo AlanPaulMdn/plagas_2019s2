@@ -6,28 +6,35 @@ test "Plagas" {
 	
 	const elemento = new Mascota(nivelDeSalud=300)
 	
-	const cucas = new Cucarachas(poblacionCucas=100 , pesoPromedio=8)
+	const cucas = new Cucarachas(poblacion=100 , pesoPromedio=8)
 	assert.equals(50,cucas.nivelDeDanio()) //100/2
 	assert.notThat(cucas.transmiteEnfermedades())
 	
 	cucas.atacarA(elemento)
 	assert.equals(10,cucas.pesoPromedio()) //8+2
-	//assert.equals(110,cucas.poblacion()) // 100+10 !!!!!!!!!!!!!!!!!!
+	assert.equals(110,cucas.poblacion()) // 100+10 !!!!!!!!!!!!!!!!!!
 	assert.that(cucas.transmiteEnfermedades())
 	
 	
-	const pulgas = new Pulgas(poblacionPulgas=100)
+	const pulgas = new Pulgas(poblacion=100)
 	assert.equals(200, pulgas.nivelDeDanio())
 	assert.that(pulgas.transmiteEnfermedades())
 	
 	pulgas.atacarA(elemento)
-	//assert.equals(110, pulgas.poblacion())
+	assert.equals(110, pulgas.poblacion())
 	
 	
-	const garrapatas = new Garrapatas(poblacionGarrapatas=100)
+	const garrapatas = new Garrapatas(poblacion=100)
 	assert.equals(200, garrapatas.nivelDeDanio())
+	assert.equals(100, garrapatas.poblacion())
+	
+	garrapatas.atacarA(elemento)
 	assert.equals(120, garrapatas.poblacion())
 	
+	const mosquitos = new Mosquitos(poblacion=100)
+	assert.equals(100, mosquitos.poblacion())
+	assert.equals(100,mosquitos.nivelDeDanio())
 	
-	const mosquitos = new Mosquitos(poblacionMosquitos=100)
+	mosquitos.atacarA(elemento)
+	assert.equals(110, mosquitos.poblacion())
 }

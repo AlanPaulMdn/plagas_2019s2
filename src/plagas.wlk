@@ -1,11 +1,7 @@
 import elementos.*
 
 class Plagas {
-	var poblacion =null
-	
-	method poblacion (cant){ poblacion= cant }
-	
-	method poblacion()= poblacion
+	var property poblacion
 	
 	method transmiteEnfermedades()=
 		self.poblacion() >= 10
@@ -19,14 +15,9 @@ class Plagas {
 
 
 class Cucarachas inherits Plagas{
-	var poblacionCucas
 	var property pesoPromedio
-	
-	
-	override method poblacion()= poblacionCucas
-	override method poblacion (cant){ poblacion= cant }
-	
-	method nivelDeDanio()= poblacionCucas/2
+
+	method nivelDeDanio()= poblacion/2
 	
 	override method transmiteEnfermedades()=
 		super() and pesoPromedio >= 10
@@ -38,23 +29,20 @@ class Cucarachas inherits Plagas{
 }
 
 class Pulgas inherits Plagas {
-	var property poblacionPulgas = null
 	
-	override method poblacion()= poblacionPulgas
-	method nivelDeDanio()= poblacionPulgas*2
+	override method poblacion()= poblacion
+	method nivelDeDanio()= self.poblacion()*2
 }
 
 class Garrapatas inherits Pulgas {
-	var property poblacionGarrapatas
 	override method tasaDeAumento()= 0.2
 }
 
 
 class Mosquitos inherits Plagas {
-	var property poblacionMosquitos
 	
-	override method poblacion()= poblacionMosquitos
-	method nivelDeDanio()= poblacionMosquitos
+	override method poblacion()= poblacion
+	method nivelDeDanio()= poblacion
 
 }
 
